@@ -1,0 +1,156 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Delete Account"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivBell"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_bell"
+            android:tint="@android:color/white" />
+    </RelativeLayout>
+
+    <!-- White Rounded Container -->
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_bg"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/tvWarningTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Are You Sure You Want To Delete Your Account?"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWarningInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWarningTitle"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_bg"
+            android:padding="16dp"
+            android:text="This action will permanently delete all of your data, and you will not be able to recover it. Please keep the following in mind before proceeding:\n\n• All your expenses, income and associated transactions will be eliminated.\n• You will not be able to access your account or any related information.\n• This action cannot be undone."
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvPasswordPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWarningInfo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:text="Please Enter Your Password To Confirm Deletion Of Your Account."
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <!-- Password Field -->
+        <RelativeLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/tvPasswordPrompt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_bg_corner"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@id/ivToggle"
+                android:background="@android:color/transparent"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textColorHint="#999999" />
+
+            <ImageView
+                android:id="@+id/ivToggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_eye_closed" />
+        </RelativeLayout>
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/passwordLayout"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/active_nav_item"
+            android:backgroundTint="@color/green"
+            android:text="Yes, Delete Account"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/btnDelete"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_bg_corner"
+            android:backgroundTint="@color/light_blue"
+            android:text="Cancel"
+            android:textColor="@color/black" />
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_nav_background"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/black"
+            app:menu="@menu/bottom_nav_menu" />
+    </RelativeLayout>
+</RelativeLayout>

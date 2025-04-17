@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Your main app theme -->
+    <style name="Theme.BudgetBuddy" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorAccent">@color/black</item>
+        <!--suppress AndroidDomInspection -->
+
+    </style>
+
+    <!-- Custom Active Item Style -->
+    <style name="ActiveItemStyle">
+        <item name="android:background">@drawable/active_nav_item</item>
+    </style>
+
+</resources>
+
