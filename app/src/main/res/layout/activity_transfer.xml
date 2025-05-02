@@ -193,7 +193,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTransfers"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="480dp"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -203,7 +203,8 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/bottom_nav_background"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
