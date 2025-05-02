@@ -6,73 +6,145 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
-
-    private EditText etFullName, etEmail, etMobile, etDob, etPassword, etConfirmPassword;
-    private Button btnSignUp;
-    private TextView tvLogin;
+    private EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    private Button signUpButton;
+    private TextView loginTextView;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        // Initialize Firebase Auth and Database
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // Initialize views
-        etFullName = findViewById(R.id.etFullName);
-        etEmail = findViewById(R.id.etEmail);
-        etMobile = findViewById(R.id.etMobile);
-        etDob = findViewById(R.id.etDob);
-        etPassword = findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        tvLogin = findViewById(R.id.tvLogin);
+        initializeViews();
+        setupClickListeners();
+    }
 
-        // Sign-up button click listener
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
+    private void initializeViews() {
+        nameEditText = findViewById(R.id.nameEditText);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+        signUpButton = findViewById(R.id.signUpButton);
+        loginTextView = findViewById(R.id.loginTextView);
+        progressBar = findViewById(R.id.progressBar);
+    }
 
-        // Navigate to login screen
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Signup.this, LoginActivity.class));
-            }
+    private void setupClickListeners() {
+        // Handle Sign Up button click
+        signUpButton.setOnClickListener(v -> registerUser());
+
+        // Handle Login text click
+        loginTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(Signup.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
     private void registerUser() {
-        String fullName = etFullName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String mobile = etMobile.getText().toString().trim();
-        String dob = etDob.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String confirmPassword = etConfirmPassword.getText().toString().trim();
+        String fullName = nameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-        // Input validation
-        if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(mobile) ||
-                TextUtils.isEmpty(dob) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
-            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+        // Validate inputs
+        if (TextUtils.isEmpty(fullName)) {
+            nameEditText.setError("Full name is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            return;
+        }
+
+        if (password.length() < 6) {
+            passwordEditText.setError("Password must be at least 6 characters");
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            confirmPasswordEditText.setError("Passwords do not match");
             return;
         }
 
-        // Registration success (for now, just show a toast message)
-        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
+        // Show progress bar and disable sign up button
+        progressBar.setVisibility(View.VISIBLE);
+        signUpButton.setEnabled(false);
 
-        // Navigate to another screen after signup (e.g., HomeActivity)
-        startActivity(new Intent(Signup.this, MainActivity.class));
-        finish();
+        // Create user with email and password
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Send verification email
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(emailTask -> {
+                                        if (emailTask.isSuccessful()) {
+                                            // Save user data to database
+                                            saveUserData(user.getUid(), fullName, email);
+
+                                            Toast.makeText(Signup.this,
+                                                    "Verification email sent. Please verify your email.",
+                                                    Toast.LENGTH_LONG).show();
+
+                                            // Sign out and return to login
+                                            mAuth.signOut();
+                                            Intent intent = new Intent(Signup.this, LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(Signup.this,
+                                                    "Failed to send verification email: " + emailTask.getException().getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(Signup.this,
+                                "Registration failed: " + task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    // Hide progress bar and enable sign up button
+                    progressBar.setVisibility(View.GONE);
+                    signUpButton.setEnabled(true);
+                });
+    }
+
+    private void saveUserData(String userId, String fullName, String email) {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("name", fullName);
+        userData.put("email", email);
+        userData.put("createdAt", System.currentTimeMillis());
+        userData.put("lastLogin", System.currentTimeMillis());
+
+        mDatabase.child("users").child(userId).setValue(userData);
     }
 }

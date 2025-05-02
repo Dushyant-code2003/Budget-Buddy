@@ -1,7 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BudgetBuddyorg</string>
+
+    <string name="app_name">Budget Buddy</string>
     <string name="terms_paragraph">Dushyant</string>
     <string name="terms_paragraph_2">Dushyant Instructions</string>
     <string name="terms_paragraph_3">Dushyant Okay OKay</string>
+    <string name="calendar">Calendar</string>
+    <string name="april">April</string>
+    <string name="separator">-</string>
+    <string name="year_2023">2023</string>
+    <string name="spends">Spends</string>
+    <string name="categories">Categories</string>
 
+
+    <!-- Firebase Configuration -->
+    <string name="firebase_web_api_key">AIzaSyAmVbJFNVYLYUuHmtC9uRLo1AWbbc3_NEY</string>
+    <string name="firebase_project_id">budgetbuddyorg-989b9</string>
+    <string name="firebase_app_id">1:525909045229:android:25b869a87c4f42c95d01e4</string>
+
+    <!-- Facebook Configuration -->
+    <string name="facebook_app_id">8039392186185516</string>
+    <string name="facebook_client_token">ae96afe47232f05c2ae6e03e6f0f4c71</string>
+
+    <!-- Google Sign-In Configuration -->
+    <string name="default_web_client_id">525909045229-f6hncpj0duldd32iph3al87a7nsnobsg.apps.googleusercontent.com</string>
 </resources>

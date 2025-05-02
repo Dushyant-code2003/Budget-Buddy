@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
-    tools:context=".ProfileActivity">
+    android:background="@color/green">
 
     <!-- Header -->
     <RelativeLayout
@@ -15,12 +13,13 @@
         android:background="@color/green"
         android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/ivBack"
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
             app:tint="@android:color/white" />
 
@@ -36,73 +35,80 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/ivNotification"
+            android:id="@+id/notificationButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/ic_bell"
             app:tint="@android:color/white" />
     </RelativeLayout>
 
     <!-- White Rounded Container -->
     <LinearLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/headerLayout"
-        android:orientation="vertical"
         android:background="@drawable/rounded_bg"
-        android:paddingTop="60dp">
+        android:orientation="vertical"
+        android:paddingTop="24dp">
 
-        <!-- Profile Image (Overlapping) -->
-
-        <!-- Name -->
-
-        <ImageView
-            android:id="@+id/ivProfilePic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="-80dp"
-            android:background="@drawable/circle_border"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile"
-            app:srcCompat="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/tvProfileName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="John Smith"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- ID -->
-        <TextView
-            android:id="@+id/tvProfileId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="ID: 25030024"
-            android:textColor="#888888"
-            android:textSize="14sp"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Option Items -->
+        <!-- Profile Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="482dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- Profile Image -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="60dp"
+                app:cardElevation="4dp">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Name -->
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Smith"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- ID -->
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="ID: 25030024"
+                android:textColor="#888888"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Menu Items -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="24dp">
 
-            <!-- Repeat this block for each item -->
-
             <!-- Edit Profile -->
             <LinearLayout
+                android:id="@+id/editProfileButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="18dp"
@@ -118,12 +124,11 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_edit"
+                        android:src="@drawable/ic_profile"
                         app:tint="@android:color/white" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btnEditProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -134,6 +139,7 @@
 
             <!-- Security -->
             <LinearLayout
+                android:id="@+id/securityButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="18dp"
@@ -154,7 +160,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btnSecurity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -163,8 +168,9 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- Repeat for Setting, Help, Logout -->
+            <!-- Setting -->
             <LinearLayout
+                android:id="@+id/settingButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="18dp"
@@ -185,16 +191,17 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btnSettings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Settings"
+                    android:text="Setting"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- Help -->
             <LinearLayout
+                android:id="@+id/helpButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="18dp"
@@ -215,7 +222,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btnHelp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -224,7 +230,9 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- Logout -->
             <LinearLayout
+                android:id="@+id/logoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="18dp"
@@ -245,7 +253,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btnLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -253,22 +260,19 @@
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bottom_nav_background"
-        app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
+        app:menu="@menu/bottom_nav_menu"
         app:itemActiveIndicatorStyle="@style/ActiveItemStyle" />
 </RelativeLayout>

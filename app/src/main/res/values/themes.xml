@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.BudgetBuddyorg" parent="Base.Theme.BudgetBuddyorg" />
+
+    <!-- NoActionBar theme for SplashScreen -->
+    <style name="Theme.BudgetBuddyorg.NoActionBar" parent="Theme.BudgetBuddyorg">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

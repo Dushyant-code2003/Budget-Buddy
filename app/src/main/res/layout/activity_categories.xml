@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,7 +20,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_back"
-            android:tint="@android:color/white" />
+            app:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/tvWelcome"
@@ -125,11 +127,13 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/container"
-        android:layout_below="@id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="-13dp"
         android:background="@drawable/rounded_bg"
         android:orientation="vertical"
         android:padding="20dp">
@@ -137,7 +141,7 @@
         <GridLayout
             android:id="@+id/gridLayout"
             android:layout_width="match_parent"
-            android:layout_height="474dp"
+            android:layout_height="443dp"
             android:layout_marginTop="16dp"
             android:columnCount="3"
             android:padding="5dp"
@@ -146,8 +150,8 @@
             <!-- Food Category -->
             <LinearLayout
                 android:id="@+id/foodLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="6dp"
+                android:layout_height="93dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
@@ -160,7 +164,7 @@
                     android:layout_width="54dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_food"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -189,7 +193,7 @@
                     android:layout_width="65dp"
                     android:layout_height="67dp"
                     android:src="@drawable/ic_transport"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,10 +219,10 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="62dp"
-                    android:layout_height="70dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_medicine"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -247,7 +251,7 @@
                     android:layout_width="58dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_groceries"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -276,7 +280,7 @@
                     android:layout_width="66dp"
                     android:layout_height="62dp"
                     android:src="@drawable/ic_rent"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -305,7 +309,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_gifts"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -334,7 +338,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="53dp"
                     android:src="@drawable/ic_savings"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -363,7 +367,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_entertainment"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -392,7 +396,7 @@
                     android:layout_width="59dp"
                     android:layout_height="53dp"
                     android:src="@drawable/ic_plus"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -406,7 +410,6 @@
         </GridLayout>
     </LinearLayout>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"

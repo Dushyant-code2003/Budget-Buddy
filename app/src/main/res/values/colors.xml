@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#00D09E</color>
+
+    <!-- Primary colors -->
+    <color name="green_500">#00D09E</color>
+    <color name="blue_500">#007AFF</color>
+
+    <!-- Secondary colors -->
+    <color name="blue_100">#E6F0FF</color>
+    <color name="green_100">#E6F8F4</color>
+
+    <!-- Gray scale -->
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <!-- Status colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FFC107</color>
+    <color name="error">#F44336</color>
+
+    <!-- Legacy colors (keeping for backward compatibility) -->
+    <color name="green">@color/green_500</color>
     <color name="light">#DFF7E2</color>
     <color name="light_blue">#6DB6FE</color>
-    <color name="primary_green">#00D09E</color>
-    <color name="primary_blue">#007AFF</color>
+    <color name="primary_green">@color/green_500</color>
+    <color name="primary_blue">@color/blue_500</color>
     <color name="blue">#3682F4</color>
-
 </resources>

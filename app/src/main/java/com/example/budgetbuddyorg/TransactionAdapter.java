@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
     private List<Transaction> transactionList;
@@ -29,7 +30,25 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         Transaction transaction = transactionList.get(position);
         holder.tvTitle.setText(transaction.getTitle());
         holder.tvDate.setText(transaction.getDate());
-        holder.tvAmount.setText(transaction.getAmount());
+
+        // Get the amount string and format it properly
+        String amountStr = transaction.getAmount();
+        if (amountStr != null && !amountStr.isEmpty()) {
+            // If the amount already has a currency symbol, use it as is
+            if (amountStr.startsWith("$")) {
+                holder.tvAmount.setText(amountStr);
+            } else {
+                // Otherwise, format it with currency symbol
+                float amount = transaction.getNumericAmount();
+                String formattedAmount = String.format(Locale.getDefault(), "$%.2f", Math.abs(amount));
+                if (!transaction.isIncome()) {
+                    formattedAmount = "-" + formattedAmount;
+                }
+                holder.tvAmount.setText(formattedAmount);
+            }
+        } else {
+            holder.tvAmount.setText("$0.00");
+        }
 
         // Change color based on transaction type
         if (transaction.isIncome()) {
@@ -44,13 +63,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return transactionList.size();
     }
 
+    public void updateTransactions(List<Transaction> newTransactions) {
+        this.transactionList = newTransactions;
+        notifyDataSetChanged();
+    }
+
     static class TransactionViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvDate, tvAmount;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDate = itemView.findViewById(R.id.tvDate);
+            tvDate = itemView.findViewById(R.id.tvDateTime);
             tvAmount = itemView.findViewById(R.id.tvAmount);
         }
     }
