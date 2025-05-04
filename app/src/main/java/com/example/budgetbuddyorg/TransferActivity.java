@@ -29,6 +29,7 @@ public class TransferActivity extends AppCompatActivity {
     private RecyclerView rvTransfers;
     private ImageButton btnBack, btnNotification;
     private CardView incomeCard;
+
     private BottomNavigationView bottomNav;
     private TransferListAdapter adapter;
     private final List<Transaction> transfers = new ArrayList<>();
@@ -46,6 +47,7 @@ public class TransferActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("BudgetPrefs", MODE_PRIVATE);
         initializeViews();
+        setupBottomNavigation();
         setupClickListeners();
         setupRecyclerView();
         loadTransfers();
@@ -61,6 +63,34 @@ public class TransferActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav);
         incomeCard = findViewById(R.id.incomeCard);
     }
+
+
+    private void setupBottomNavigation() {
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(TransferActivity.this, SecondActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_stat) {
+                startActivity(new Intent(TransferActivity.this, StatsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_transfer) {
+                return true;
+            } else if (itemId == R.id.nav_category) {
+                startActivity(new Intent(TransferActivity.this, CategoriesActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                startActivity(new Intent(TransferActivity.this, ProfileActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
+        });
+    }
+
 
     private void setupClickListeners() {
         btnBack.setOnClickListener(v -> finish());

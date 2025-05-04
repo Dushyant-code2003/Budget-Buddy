@@ -11,7 +11,7 @@
     <!-- Header Section -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="296dp"
+        android:layout_height="284dp"
         android:padding="20dp">
 
         <TextView
@@ -108,25 +108,49 @@
 
             </LinearLayout>
 
-            <!-- Progress Bar -->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
+            <!-- Progress Section (updated to match StatsActivity) -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="12dp"
-                android:progress="30" />
-
-            <!-- Progress Bar Description -->
-            <TextView
-                android:id="@+id/tvProgressDescription"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="30% Of Your Expenses, Looks Good."
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_centerVertical="true"
+                        android:progress="30"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressTint="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/tvProgressMaxLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="$20,000.00"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvProgressDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:text="30% Of Your Expenses, Looks Good!"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
@@ -189,14 +213,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    app:tabIndicatorColor="@android:color/holo_green_dark"
-                    app:tabTextColor="@android:color/black">
+                    app:tabIndicatorColor="@color/green"
+                    android:background="@drawable/tab_default_background"
+                    app:tabTextColor="@color/black">
 
-                    <com.google.android.material.tabs.TabItem android:text="Daily" />
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Daily"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
 
-                    <com.google.android.material.tabs.TabItem android:text="Weekly" />
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Weekly"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
 
-                    <com.google.android.material.tabs.TabItem android:text="Monthly" />
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Monthly"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <!-- RecyclerView for Transactions -->

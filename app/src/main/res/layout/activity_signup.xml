@@ -8,12 +8,14 @@
     android:padding="16dp"
     android:gravity="center">
 
+    <!-- App Logo -->
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@drawable/ic_launcher_foreground"
         android:layout_marginBottom="32dp"/>
 
+    <!-- Heading -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,14 +24,16 @@
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
 
-    <!-- White Rounded Background -->
+    <!-- White Rounded Container with Form -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_bg"
         android:padding="20dp">
 
+        <!-- Scrollable Form -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -40,104 +44,109 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+                <!-- Full Name -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
                     android:text="Full Name"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="7dp"/>
 
                 <EditText
                     android:id="@+id/nameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/rounded_bg_corner"
                     android:hint="Enter your full name"
                     android:inputType="textPersonName"
                     android:padding="12dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/rounded_bg_corner"
                     android:textColorHint="#808080" />
 
+                <!-- Email -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
                     android:text="Email"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="7dp"/>
 
                 <EditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/rounded_bg_corner"
                     android:hint="Enter your email"
                     android:inputType="textEmailAddress"
                     android:padding="12dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/rounded_bg_corner"
                     android:textColorHint="#808080" />
 
+                <!-- Password -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
                     android:text="Password"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="7dp"/>
 
                 <EditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/rounded_bg_corner"
                     android:hint="Enter your password"
                     android:inputType="textPassword"
                     android:padding="12dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/rounded_bg_corner"
                     android:textColorHint="#808080" />
 
+                <!-- Confirm Password -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
                     android:text="Confirm Password"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="7dp"/>
 
                 <EditText
                     android:id="@+id/confirmPasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/rounded_bg_corner"
                     android:hint="Confirm your password"
                     android:inputType="textPassword"
                     android:padding="12dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/rounded_bg_corner"
                     android:textColorHint="#808080" />
 
+                <!-- Sign Up Button -->
                 <Button
                     android:id="@+id/signUpButton"
                     android:layout_width="160dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/rounded_bg_corner"
-                    android:backgroundTint="@color/primary_green"
                     android:text="Sign Up"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:backgroundTint="@color/primary_green" />
 
+                <!-- Login Link -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -153,6 +162,7 @@
                         android:textColor="@color/blue" />
                 </LinearLayout>
 
+                <!-- Divider -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,6 +172,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="10sp" />
 
+                <!-- Social Icons -->
                 <LinearLayout
                     android:layout_width="118dp"
                     android:layout_height="wrap_content"
@@ -173,7 +184,6 @@
                         android:id="@+id/btnFacebook"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_gravity="center"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/facebook_icon" />
 
@@ -185,5 +195,13 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

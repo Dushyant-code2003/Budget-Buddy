@@ -20,135 +20,55 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetBuddyorg"
         tools:targetApi="31">
-        <activity
-            android:name=".AddIncomeDialog"
-            android:exported="false" />
-        <activity
-            android:name=".ExpenseDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddExpenseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoryDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CalendarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MoreCategoriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EntertainmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SavingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GiftsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GroceriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MedicineActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FoodActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SetBalance"
-            android:exported="false" />
-        <activity
-            android:name=".HelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DeleteAccount"
-            android:exported="false" />
-        <activity
-            android:name=".PasswordSetting"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationSetting"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Terms_and_Conditions"
-            android:exported="false" />
-        <activity
-            android:name=".AddFingerprint"
-            android:exported="false" />
-        <activity
-            android:name=".ConfirmAnimationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChangePinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Security"
-            android:exported="false" />
-        <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TransferActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StatsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfirmActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ResetPassword"
-            android:exported="false" />
-        <activity
-            android:name=".otpverification"
-            android:exported="false" />
-        <activity
-            android:name=".ForgotPassword"
-            android:exported="false" />
-        <activity
-            android:name=".Signup"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SecondActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Splashactivity"
-            android:exported="true">
+
+        <!-- All your existing activities -->
+        <activity android:name=".ExpenseDetailsActivity" android:exported="false" />
+        <activity android:name=".AddExpenseActivity" android:exported="false" />
+        <activity android:name=".CategoryDetailsActivity" android:exported="false" />
+        <activity android:name=".CalendarActivity" android:exported="false" />
+        <activity android:name=".SearchActivity" android:exported="false" />
+        <activity android:name=".MoreCategoriesActivity" android:exported="false" />
+        <activity android:name=".EntertainmentActivity" android:exported="false" />
+        <activity android:name=".SavingsActivity" android:exported="false" />
+        <activity android:name=".GiftsActivity" android:exported="false" />
+        <activity android:name=".RentActivity" android:exported="false" />
+        <activity android:name=".GroceriesActivity" android:exported="false" />
+        <activity android:name=".MedicineActivity" android:exported="false" />
+        <activity android:name=".FoodActivity" android:exported="false" />
+        <activity android:name=".SetBalance" android:exported="false" />
+        <activity android:name=".HelpActivity" android:exported="false" />
+        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".DeleteAccount" android:exported="false" />
+        <activity android:name=".PasswordSetting" android:exported="false" />
+        <activity android:name=".NotificationSetting" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".Terms_and_Conditions" android:exported="false" />
+        <activity android:name=".AddFingerprint" android:exported="false" />
+        <activity android:name=".ConfirmAnimationActivity" android:exported="false" />
+        <activity android:name=".ChangePinActivity" android:exported="false" />
+        <activity android:name=".Security" android:exported="false" />
+        <activity android:name=".EditProfileActivity" android:exported="false" />
+        <activity android:name=".TransferActivity" android:exported="false" />
+        <activity android:name=".StatsActivity" android:exported="false" />
+        <activity android:name=".ConfirmActivity" android:exported="false" />
+        <activity android:name=".ResetPassword" android:exported="false" />
+        <activity android:name=".otpverification" android:exported="false" />
+        <activity android:name=".ForgotPassword" android:exported="false" />
+        <activity android:name=".Signup" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".CategoriesActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".SecondActivity" android:exported="false" />
+        <activity android:name=".FingerprintActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="true" />
+        <activity android:name=".Splashactivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FingerprintActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+
+        <!-- File Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.budgetbuddyorg.fileprovider"
@@ -158,6 +78,24 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <!-- Facebook SDK Integration -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider8039392186185516"
+            android:exported="true" />
     </application>
 
 </manifest>

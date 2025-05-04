@@ -465,15 +465,246 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void setupWeeklyChart() {
-        // Implement weekly chart setup
+        ArrayList<BarEntry> incomeEntries = new ArrayList<>();
+        ArrayList<BarEntry> expenseEntries = new ArrayList<>();
+        String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        float[] incomeData = new float[7];
+        float[] expenseData = new float[7];
+        Calendar now = Calendar.getInstance();
+        for (Transaction t : transactionList) {
+            Calendar transCal = Calendar.getInstance();
+            // Parse date from transaction (format: "HH:mm - MMM dd")
+            try {
+                String[] parts = t.getDate().split(" - ");
+                if (parts.length == 2) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd", java.util.Locale.getDefault());
+                    java.util.Date dateObj = sdf.parse(parts[1]);
+                    if (dateObj != null) {
+                        transCal.setTime(dateObj);
+                        transCal.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    }
+                }
+            } catch (Exception ignored) {}
+            if (now.get(Calendar.YEAR) == transCal.get(Calendar.YEAR) &&
+                    now.get(Calendar.WEEK_OF_YEAR) == transCal.get(Calendar.WEEK_OF_YEAR)) {
+                int dayOfWeek = transCal.get(Calendar.DAY_OF_WEEK) - Calendar.MONDAY;
+                if (dayOfWeek < 0) dayOfWeek += 7;
+                if (t.isIncome()) {
+                    incomeData[dayOfWeek] += t.getNumericAmount();
+                } else {
+                    expenseData[dayOfWeek] += t.getNumericAmount();
+                }
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            incomeEntries.add(new BarEntry(i, incomeData[i]));
+            expenseEntries.add(new BarEntry(i, expenseData[i]));
+        }
+        BarDataSet incomeDataSet = new BarDataSet(incomeEntries, "Income");
+        incomeDataSet.setColor(getResources().getColor(R.color.green));
+        incomeDataSet.setDrawValues(false);
+        BarDataSet expenseDataSet = new BarDataSet(expenseEntries, "Expense");
+        expenseDataSet.setColor(getResources().getColor(R.color.blue));
+        expenseDataSet.setDrawValues(false);
+        BarData barData = new BarData(incomeDataSet, expenseDataSet);
+        barData.setBarWidth(0.3f);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setGranularity(5000f);
+        leftAxis.setLabelCount(4, true);
+        leftAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (value == 0) return "0";
+                if (value >= 1000) {
+                    return (int) (value / 1000) + "k";
+                }
+                return String.valueOf((int) value);
+            }
+        });
+        barChart.getAxisRight().setEnabled(false);
+        barChart.setDrawGridBackground(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.setExtraBottomOffset(10f);
+        float groupSpace = 0.4f;
+        float barSpace = 0f;
+        barData.setBarWidth(0.3f);
+        barChart.getXAxis().setAxisMinimum(0);
+        barChart.getXAxis().setAxisMaximum(0 + barData.getGroupWidth(groupSpace, barSpace) * 7);
+        barChart.groupBars(0, groupSpace, barSpace);
+        barChart.setData(barData);
+        barChart.invalidate();
     }
 
     private void setupMonthlyChart() {
-        // Implement monthly chart setup
+        ArrayList<BarEntry> incomeEntries = new ArrayList<>();
+        ArrayList<BarEntry> expenseEntries = new ArrayList<>();
+        Calendar now = Calendar.getInstance();
+        int daysInMonth = now.getActualMaximum(Calendar.DAY_OF_MONTH);
+        float[] incomeData = new float[daysInMonth];
+        float[] expenseData = new float[daysInMonth];
+        for (Transaction t : transactionList) {
+            Calendar transCal = Calendar.getInstance();
+            try {
+                String[] parts = t.getDate().split(" - ");
+                if (parts.length == 2) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd", java.util.Locale.getDefault());
+                    java.util.Date dateObj = sdf.parse(parts[1]);
+                    if (dateObj != null) {
+                        transCal.setTime(dateObj);
+                        transCal.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    }
+                }
+            } catch (Exception ignored) {}
+            if (now.get(Calendar.YEAR) == transCal.get(Calendar.YEAR) &&
+                    now.get(Calendar.MONTH) == transCal.get(Calendar.MONTH)) {
+                int dayOfMonth = transCal.get(Calendar.DAY_OF_MONTH) - 1;
+                if (t.isIncome()) {
+                    incomeData[dayOfMonth] += t.getNumericAmount();
+                } else {
+                    expenseData[dayOfMonth] += t.getNumericAmount();
+                }
+            }
+        }
+        for (int i = 0; i < daysInMonth; i++) {
+            incomeEntries.add(new BarEntry(i, incomeData[i]));
+            expenseEntries.add(new BarEntry(i, expenseData[i]));
+        }
+        BarDataSet incomeDataSet = new BarDataSet(incomeEntries, "Income");
+        incomeDataSet.setColor(getResources().getColor(R.color.green));
+        incomeDataSet.setDrawValues(false);
+        BarDataSet expenseDataSet = new BarDataSet(expenseEntries, "Expense");
+        expenseDataSet.setColor(getResources().getColor(R.color.blue));
+        expenseDataSet.setDrawValues(false);
+        BarData barData = new BarData(incomeDataSet, expenseDataSet);
+        barData.setBarWidth(0.3f);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.BLACK);
+        String[] days = new String[daysInMonth];
+        for (int i = 0; i < daysInMonth; i++) days[i] = String.valueOf(i + 1);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setGranularity(5000f);
+        leftAxis.setLabelCount(4, true);
+        leftAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (value == 0) return "0";
+                if (value >= 1000) {
+                    return (int) (value / 1000) + "k";
+                }
+                return String.valueOf((int) value);
+            }
+        });
+        barChart.getAxisRight().setEnabled(false);
+        barChart.setDrawGridBackground(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.setExtraBottomOffset(10f);
+        float groupSpace = 0.4f;
+        float barSpace = 0f;
+        barData.setBarWidth(0.3f);
+        barChart.getXAxis().setAxisMinimum(0);
+        barChart.getXAxis().setAxisMaximum(0 + barData.getGroupWidth(groupSpace, barSpace) * daysInMonth);
+        barChart.groupBars(0, groupSpace, barSpace);
+        barChart.setData(barData);
+        barChart.invalidate();
     }
 
     private void setupYearlyChart() {
-        // Implement yearly chart setup
+        ArrayList<BarEntry> incomeEntries = new ArrayList<>();
+        ArrayList<BarEntry> expenseEntries = new ArrayList<>();
+        String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        float[] incomeData = new float[12];
+        float[] expenseData = new float[12];
+        Calendar now = Calendar.getInstance();
+        for (Transaction t : transactionList) {
+            Calendar transCal = Calendar.getInstance();
+            try {
+                String[] parts = t.getDate().split(" - ");
+                if (parts.length == 2) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd", java.util.Locale.getDefault());
+                    java.util.Date dateObj = sdf.parse(parts[1]);
+                    if (dateObj != null) {
+                        transCal.setTime(dateObj);
+                        transCal.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    }
+                }
+            } catch (Exception ignored) {}
+            if (now.get(Calendar.YEAR) == transCal.get(Calendar.YEAR)) {
+                int month = transCal.get(Calendar.MONTH);
+                if (t.isIncome()) {
+                    incomeData[month] += t.getNumericAmount();
+                } else {
+                    expenseData[month] += t.getNumericAmount();
+                }
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            incomeEntries.add(new BarEntry(i, incomeData[i]));
+            expenseEntries.add(new BarEntry(i, expenseData[i]));
+        }
+        BarDataSet incomeDataSet = new BarDataSet(incomeEntries, "Income");
+        incomeDataSet.setColor(getResources().getColor(R.color.green));
+        incomeDataSet.setDrawValues(false);
+        BarDataSet expenseDataSet = new BarDataSet(expenseEntries, "Expense");
+        expenseDataSet.setColor(getResources().getColor(R.color.blue));
+        expenseDataSet.setDrawValues(false);
+        BarData barData = new BarData(incomeDataSet, expenseDataSet);
+        barData.setBarWidth(0.3f);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(months));
+        xAxis.setCenterAxisLabels(true);
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setGranularity(5000f);
+        leftAxis.setLabelCount(4, true);
+        leftAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (value == 0) return "0";
+                if (value >= 1000) {
+                    return (int) (value / 1000) + "k";
+                }
+                return String.valueOf((int) value);
+            }
+        });
+        barChart.getAxisRight().setEnabled(false);
+        barChart.setDrawGridBackground(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.setExtraBottomOffset(10f);
+        float groupSpace = 0.4f;
+        float barSpace = 0f;
+        barData.setBarWidth(0.3f);
+        barChart.getXAxis().setAxisMinimum(0);
+        barChart.getXAxis().setAxisMaximum(0 + barData.getGroupWidth(groupSpace, barSpace) * 12);
+        barChart.groupBars(0, groupSpace, barSpace);
+        barChart.setData(barData);
+        barChart.invalidate();
     }
 
     private void calculatePeriodExpenses() {

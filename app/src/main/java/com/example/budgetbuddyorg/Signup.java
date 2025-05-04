@@ -4,24 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Signup extends AppCompatActivity {
+
     private EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     private Button signUpButton;
     private TextView loginTextView;
     private ProgressBar progressBar;
+
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -30,33 +29,24 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // Initialize Firebase Auth and Database
+        // Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Initialize views
-        initializeViews();
-        setupClickListeners();
-    }
-
-    private void initializeViews() {
+        // UI Components
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         signUpButton = findViewById(R.id.signUpButton);
         loginTextView = findViewById(R.id.loginTextView);
-        progressBar = findViewById(R.id.progressBar);
-    }
+        progressBar = findViewById(R.id.progressBar); // Ensure it's added in your XML
 
-    private void setupClickListeners() {
-        // Handle Sign Up button click
+        // Click Listeners
         signUpButton.setOnClickListener(v -> registerUser());
 
-        // Handle Login text click
         loginTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(Signup.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(Signup.this, LoginActivity.class));
             finish();
         });
     }
@@ -67,7 +57,7 @@ public class Signup extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-        // Validate inputs
+        // Validations
         if (TextUtils.isEmpty(fullName)) {
             nameEditText.setError("Full name is required");
             return;
@@ -93,48 +83,40 @@ public class Signup extends AppCompatActivity {
             return;
         }
 
-        // Show progress bar and disable sign up button
+        // Start progress
         progressBar.setVisibility(View.VISIBLE);
         signUpButton.setEnabled(false);
 
-        // Create user with email and password
+        // Firebase Auth
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+                    signUpButton.setEnabled(true);
+
                     if (task.isSuccessful()) {
-                        // Send verification email
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            user.sendEmailVerification()
-                                    .addOnCompleteListener(emailTask -> {
-                                        if (emailTask.isSuccessful()) {
-                                            // Save user data to database
-                                            saveUserData(user.getUid(), fullName, email);
-
-                                            Toast.makeText(Signup.this,
-                                                    "Verification email sent. Please verify your email.",
-                                                    Toast.LENGTH_LONG).show();
-
-                                            // Sign out and return to login
-                                            mAuth.signOut();
-                                            Intent intent = new Intent(Signup.this, LoginActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(Signup.this,
-                                                    "Failed to send verification email: " + emailTask.getException().getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                            user.sendEmailVerification().addOnCompleteListener(emailTask -> {
+                                if (emailTask.isSuccessful()) {
+                                    saveUserData(user.getUid(), fullName, email);
+                                    Toast.makeText(Signup.this,
+                                            "Verification email sent. Please verify and log in.",
+                                            Toast.LENGTH_LONG).show();
+                                    mAuth.signOut();
+                                    startActivity(new Intent(Signup.this, LoginActivity.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(Signup.this,
+                                            "Verification email failed: " + emailTask.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     } else {
                         Toast.makeText(Signup.this,
-                                "Registration failed: " + task.getException().getMessage(),
+                                "Sign up failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
-
-                    // Hide progress bar and enable sign up button
-                    progressBar.setVisibility(View.GONE);
-                    signUpButton.setEnabled(true);
                 });
     }
 
