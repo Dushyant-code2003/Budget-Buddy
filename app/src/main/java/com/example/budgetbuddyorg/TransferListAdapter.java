@@ -1,17 +1,23 @@
 package com.example.budgetbuddyorg;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class TransferListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private static final int TYPE_MONTH_HEADER = 0;
     private static final int TYPE_TRANSFER = 1;
 
@@ -19,13 +25,10 @@ public class TransferListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setTransactions(Map<String, List<Transaction>> transfersByMonth) {
         items.clear();
-
-        // Flatten the grouped transactions into a single list with headers
         for (Map.Entry<String, List<Transaction>> entry : transfersByMonth.entrySet()) {
-            items.add(entry.getKey()); // Month header
-            items.addAll(entry.getValue()); // Transfers for that month
+            items.add(entry.getKey()); // Month name (String)
+            items.addAll(entry.getValue()); // List of Transaction objects
         }
-
         notifyDataSetChanged();
     }
 
@@ -76,10 +79,7 @@ public class TransferListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     static class TransferViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivCategory;
-        private final TextView tvTitle;
-        private final TextView tvDateTime;
-        private final TextView tvCategory;
-        private final TextView tvAmount;
+        private final TextView tvTitle, tvDateTime, tvCategory, tvAmount;
 
         TransferViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,14 +95,27 @@ public class TransferListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvDateTime.setText(transfer.getDate());
             tvCategory.setText(transfer.getCategory());
 
-            // Set text color based on transaction type
-            int textColor = transfer.isIncome() ? 0xFF00D09E : 0xFFFF2E2E;
-            tvAmount.setTextColor(textColor);
-            tvAmount.setText(transfer.getAmount());
+            float amount = transfer.getNumericAmount();
+            String formattedAmount = String.format(Locale.getDefault(), "$%.2f", Math.abs(amount));
 
-            // Set category icon based on category name
+            if (transfer.isIncome()) {
+                tvAmount.setTextColor(itemView.getContext().getResources().getColor(R.color.green));
+                tvAmount.setText(formattedAmount);
+            } else {
+                tvAmount.setTextColor(itemView.getContext().getResources().getColor(R.color.red));
+                tvAmount.setText("-" + formattedAmount);
+            }
+
+            // Set category icon
             int iconResId = getCategoryIcon(transfer.getCategory());
             ivCategory.setImageResource(iconResId);
+
+            // Set background tint color
+            int backgroundColor = transfer.isIncome() ?
+                    itemView.getContext().getResources().getColor(R.color.green) :
+                    itemView.getContext().getResources().getColor(R.color.red);
+            ivCategory.setColorFilter(Color.WHITE);
+            ivCategory.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         }
 
         private int getCategoryIcon(String category) {
@@ -118,6 +131,12 @@ public class TransferListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 case "transport":
                     return R.drawable.ic_transport;
                 case "food":
+                    return R.drawable.ic_food;
+                case "pantry":
+                    return R.drawable.ic_groceries;
+                case "fuel":
+                    return R.drawable.ic_transport;
+                case "dinner":
                     return R.drawable.ic_food;
                 default:
                     return R.drawable.ic_others;
