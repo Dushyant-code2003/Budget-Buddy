@@ -7,4 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".HelpActivity">
 
+    <ImageView
+        android:id="@+id/helpIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_help"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/helpText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/helpText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Need help?\n\n- For any issues, contact support@budgetbuddy.com\n- Visit our FAQ section in the app menu\n- For feedback, use the feedback form in settings.\n\nWe're here to help you manage your budget!"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/helpIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
