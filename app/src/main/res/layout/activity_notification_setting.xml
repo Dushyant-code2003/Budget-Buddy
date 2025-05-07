@@ -50,8 +50,7 @@
         android:background="@drawable/rounded_bg"
         android:padding="24dp">
 
-        <!-- Each switch item -->
-        <!-- Example: General Notification -->
+        <!-- Switch Items -->
         <TextView
             android:id="@+id/tvGeneral"
             android:layout_width="wrap_content"
@@ -65,9 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvGeneral"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Sound -->
         <TextView
             android:id="@+id/tvSound"
             android:layout_width="wrap_content"
@@ -83,9 +83,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvSound"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Sound Call -->
         <TextView
             android:id="@+id/tvSoundCall"
             android:layout_width="wrap_content"
@@ -101,9 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvSoundCall"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Vibrate -->
         <TextView
             android:id="@+id/tvVibrate"
             android:layout_width="wrap_content"
@@ -119,9 +121,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvVibrate"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Transaction Update -->
         <TextView
             android:id="@+id/tvTransaction"
             android:layout_width="wrap_content"
@@ -137,9 +140,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvTransaction"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Expense Reminder -->
         <TextView
             android:id="@+id/tvReminder"
             android:layout_width="wrap_content"
@@ -155,9 +159,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvReminder"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Budget Notifications -->
         <TextView
             android:id="@+id/tvBudget"
             android:layout_width="wrap_content"
@@ -173,9 +178,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvBudget"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
 
-        <!-- Low Balance Alerts -->
         <TextView
             android:id="@+id/tvLowBalance"
             android:layout_width="wrap_content"
@@ -191,9 +197,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tvLowBalance"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:thumbTint="@color/switch_thumb_color"
+            android:trackTint="@color/switch_track_color" />
     </RelativeLayout>
-    <!-- Bottom Navigation inside rounded white container -->
+
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
